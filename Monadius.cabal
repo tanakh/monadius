@@ -1,0 +1,29 @@
+name:                Monadius
+version:             0.93
+
+license:             GPL
+license-file:        LICENSE
+author:              Hideyuki Tanaka & Takayuki Muranushi
+maintainer:          Takayuki Muranushi <muranushi@gmail.com>
+
+stability:           Stable
+category:            Game
+synopsis:            2-D arcade scroller
+description:         A fast-paced 2-D scrolling vector graphics clone of the arcade game Gradius;
+                     it is dedicated to the 20th anniversary of Gradius series.
+                     .
+                     The Darcs repo is available at <http://code.haskell.org/monadius/>.
+homepage:            http://www.geocities.jp/takascience/haskell/monadius_en.html
+
+build-depends:       base<4, array, directory, GLUT, OpenGL
+build-type:          Simple
+data-files:          readme-e.txt, readme-j.txt
+tested-with:         GHC==6.8.2
+
+executable:          monadius
+main-is:             Main.hs
+hs-source-dirs:      Monadius
+other-modules:       Demo, Game, Monadius, Recorder, Util
+
+ghc-options:         -Wall
+ghc-prof-options:    -prof -auto-all
