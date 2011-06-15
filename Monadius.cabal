@@ -31,6 +31,9 @@ Executable monadius
   Hs-source-dirs:      Monadius
   Ghc-options:         -Wall
 
+  if os(windows)
+    Ghc-options:       -optl-mwindows
+
   Main-is:             Main.hs
   Other-modules:       Demo
                        Game
