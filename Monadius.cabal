@@ -33,10 +33,10 @@ Executable monadius
 
   Main-is:             Main.hs
   Other-modules:       Demo
-                     , Game
-                     , Monadius
-                     , Recorder
-                     , Util
+                       Game
+                       Monadius
+                       Recorder
+                       Util
 
 Source-repository head
   type:           git
