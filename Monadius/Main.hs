@@ -8,7 +8,6 @@
 module Main (main) where
 
 import Graphics.UI.GLUT hiding (position)
-import Graphics.Rendering.OpenGL.GLU
 import Control.Exception -- (catch, ExitException(), throwIO)
 import Control.Monad (mplus, zipWithM_)
 import System.Exit -- (ExitSuccess())
@@ -50,7 +49,7 @@ main :: IO ()
 main = do
   args <- getArgs
   putDebugStrLn $ show args
-  getArgsAndInitialize
+  _ <- getArgsAndInitialize
   keystate <- newIORef []
 
   (recMode,keys,rss,repName) <- if isJust $ getReplayFilename args then do
@@ -95,7 +94,7 @@ main = do
   mainLoop
   destroyWindow curwnd
 
-  `catch` (\_ -> return ())
+  `catch` (\(SomeException _) -> return ())
 
   where
     getReplayFilename [] = Nothing
@@ -109,7 +108,7 @@ main = do
     removesuffix str = if '.' `elem` str then (removesuffix . init) str else str
 
 exitLoop :: IO a
-exitLoop = throwIO $ ExitException ExitSuccess
+exitLoop = exitWith ExitSuccess
 
 initMatrix :: IO ()
 initMatrix = do

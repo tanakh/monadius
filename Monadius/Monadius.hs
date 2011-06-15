@@ -670,10 +670,10 @@ updateMonadius realKeys (Monadius (variables,objects))
   -- and every object will continue to hold the same tag.
   issueTag :: Int -> [GameObject] -> (Int,[GameObject])
   issueTag nt [] = (nt,[])
-  issueTag nt (x:xs) = (newNextTag,taggedX:taggedXs)
+  issueTag nt (x:xs) = (newNextTag',taggedX:taggedXs)
       where
         (nextTagForXs,taggedX) = if(isNothing $ tag x) then (nt+1,x{tag = Just nt}) else (nt,x)
-        (newNextTag,taggedXs)  = issueTag nextTagForXs xs
+        (newNextTag',taggedXs)  = issueTag nextTagForXs xs
 
   collide :: [GameObject] -> [GameObject]
   -- collide a list of GameObjects and return the result.

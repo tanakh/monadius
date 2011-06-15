@@ -1,29 +1,43 @@
-name:                Monadius
-version:             0.93
+Name:                Monadius
+Version:             0.94
 
-license:             GPL
-license-file:        LICENSE
-author:              Hideyuki Tanaka & Takayuki Muranushi
-maintainer:          Takayuki Muranushi <muranushi@gmail.com>
-
-stability:           Stable
-category:            Game
-synopsis:            2-D arcade scroller
-description:         A fast-paced 2-D scrolling vector graphics clone of the arcade game Gradius;
+Synopsis:            2-D arcade scroller
+Description:         A fast-paced 2-D scrolling vector graphics clone of the arcade game Gradius;
                      it is dedicated to the 20th anniversary of Gradius series.
-                     .
-                     The Darcs repo is available at <http://code.haskell.org/monadius/>.
-homepage:            http://www.geocities.jp/takascience/haskell/monadius_en.html
 
-build-depends:       base<4, array, directory, GLUT, OpenGL
-build-type:          Simple
-data-files:          readme-e.txt, readme-j.txt
-tested-with:         GHC==6.8.2
+License:             GPL
+License-file:        LICENSE
 
-executable:          monadius
-main-is:             Main.hs
-hs-source-dirs:      Monadius
-other-modules:       Demo, Game, Monadius, Recorder, Util
+Author:              Takayuki Muranushi & Hideyuki Tanaka
+Maintainer:          Hideyuki Tanaka <tanaka.hideyuki@gmail.com>
 
-ghc-options:         -Wall
-ghc-prof-options:    -prof -auto-all
+Stability:           Stable
+Category:            Game
+
+Homepage:            http://www.geocities.jp/takascience/haskell/monadius_en.html
+
+Build-type:          Simple
+Cabal-version:       >= 1.6
+
+Data-files:          readme-e.txt, readme-j.txt
+
+Executable monadius
+  Build-depends:       base      >= 4 && < 5
+                     , array     >= 0.3 && < 0.4
+                     , directory >= 1.1 && < 1.2
+                     , GLUT      >= 2.1 && < 2.2
+                     , OpenGL    >= 2.2 && < 2.3
+
+  Hs-source-dirs:      Monadius
+  Ghc-options:         -Wall
+
+  Main-is:             Main.hs
+  Other-modules:       Demo
+                     , Game
+                     , Monadius
+                     , Recorder
+                     , Util
+
+Source-repository head
+  type:           git
+  location:       git://github.com/tanakh/monadius.git
