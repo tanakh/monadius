@@ -64,9 +64,9 @@ renderRecorder :: Recorder -> IO ()
 renderRecorder me = do
   (putDebugStrLn.show.mode) me
   if age me==0 || mode me /= Record then return () else preservingMatrix $ do
-    translate (Vector3 300 (-230) (0::Double))
-    scale 0.1 0.1 (0.1 :: Double)
-    color (Color3 0.4  0.4 (0.4 :: Double))
+    translate (Vector3 300 (-230) (0::GLdouble))
+    scale 0.1 0.1 (0.1 :: GLdouble)
+    color (Color3 0.4  0.4 (0.4 :: GLdouble))
     renderString Roman $ show $ (head.preEncodedKeyBuf) me
 
   render $ gameBody me
