@@ -7,7 +7,7 @@ module Util (
                       filterJust,
                       infinite,
                       innerProduct,
-                      intToDouble,
+                      intToGLdouble,
                       isDebugMode,
                       modifyArray,
                       padding,
@@ -20,6 +20,7 @@ module Util (
 import Data.Maybe (fromJust, isJust)
 import Data.Complex
 import Data.Array ( (!), (//), Array(), Ix() )
+import Graphics.Rendering.OpenGL -- Types.GLdouble
 
 -- | Switch this to True to get debug outputs. Be careful: you get a crash under
 -- Microsoft Windows, because the console is not available.
@@ -40,7 +41,7 @@ class ComplexShape s where
   -- | Collision check
   (>?<) :: s -> s -> Bool
   -- | Translation by a vector
-  (+>) :: (Complex Double) -> s -> s
+  (+>) :: (Complex GLdouble) -> s -> s
 
 instance ComplexShape Shape where
   a >?< b = case (a,b) of
@@ -57,8 +58,8 @@ instance ComplexShape Shape where
     Rectangular{} -> a{bottomLeft = bottomLeft a + v, topRight = topRight a + v}
     Shapes{}      -> a{children = map (v +>) $ children a}
 
-data Shape = Circular {center :: Complex Double, radius :: Double} |
-             Rectangular {bottomLeft :: Complex Double, topRight :: Complex Double} |
+data Shape = Circular {center :: Complex GLdouble, radius :: GLdouble} |
+             Rectangular {bottomLeft :: Complex GLdouble, topRight :: Complex GLdouble} |
              Shapes {children :: [Shape]}
 
 -- | Put a Rectangle coordinates into normal order so that collision will go properly.
@@ -67,22 +68,22 @@ regulate Rectangular{bottomLeft=(x1:+y1),topRight=(x2:+y2) }= Rectangular (min x
 regulate ss@Shapes{} = ss{children = map regulate $ children ss}
 regulate x = x
 
-intToDouble :: Int -> Double
-intToDouble = fromIntegral
+intToGLdouble :: Int -> GLdouble
+intToGLdouble = fromIntegral
 
-unitVector :: Complex Double -> Complex Double
+unitVector :: Complex GLdouble -> Complex GLdouble
 unitVector z
     | magnitude z <= 0.00000001 = 1:+0
     | otherwise                 = z / abs z
 
-angleAccuracy :: Int -> Complex Double -> Complex Double
+angleAccuracy :: Int -> Complex GLdouble -> Complex GLdouble
 angleAccuracy division z = mkPolar r theta
     where
       (r,t)=polar z
-      theta = (intToDouble $ round (t / (2*pi) * d))/d*2*pi
-      d = intToDouble division
+      theta = (intToGLdouble $ round (t / (2*pi) * d))/d*2*pi
+      d = intToGLdouble division
 
-innerProduct :: Complex Double -> Complex Double -> Double
+innerProduct :: Complex GLdouble -> Complex GLdouble -> GLdouble
 innerProduct a b = realPart $ a * (conjugate b)
 
 padding :: Char -> Int -> String -> String
