@@ -23,7 +23,7 @@ Data-files:          readme-e.txt, readme-j.txt
 
 Executable monadius
   Build-depends:       base      >= 4 && < 5
-                     , array     >= 0.3 && < 0.4
+                     , array     >= 0.3 && < 0.5
                      , directory >= 1.1 && < 1.2
                      , GLUT      >= 2.2 && < 2.3
                      , OpenGL    >= 2.4 && < 2.5
