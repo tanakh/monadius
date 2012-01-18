@@ -24,7 +24,7 @@ import Demo -- (ReplayInfo(), demoData)
 import Game (isGameover, render, update)
 import Monadius
 import Recorder
-import Util (intToDouble, padding, putDebugStrLn)
+import Util (intToGLdouble, padding, putDebugStrLn)
 
 data GlobalVariables = GlobalVariables{
   saveState :: (Int,Int) ,isCheat :: Bool, demoIndex :: Int,
@@ -116,7 +116,7 @@ initMatrix = do
   matrixMode $= Projection
   loadIdentity
   perspective 30.0 (4/3) 600 1400
-  lookAt (Vertex3 0 0 (927 :: Double)) (Vertex3 0 0 (0 :: Double)) (Vector3 0 1 (0 :: Double))
+  lookAt (Vertex3 0 0 (927 :: GLdouble)) (Vertex3 0 0 (0 :: GLdouble)) (Vector3 0 1 (0 :: GLdouble))
 
 dispProc :: IORef (IO Scene) -> IO ()
 dispProc cp = do
@@ -138,45 +138,45 @@ openingProc clock menuCursor vars ks = do
   matrixMode $= Modelview 0
   loadIdentity
 
-  if clock < drawCompleteTime then color $ Color3 (0 :: Double) 0.2 0.8
-    else color $ Color3 (0+shine clock :: Double) (0.2+shine clock) (0.8+shine clock)
+  if clock < drawCompleteTime then color $ Color3 (0 :: GLdouble) 0.2 0.8
+    else color $ Color3 (0+shine clock :: GLdouble) (0.2+shine clock) (0.8+shine clock)
   preservingMatrix $ do
-    translate (Vector3 0 (120 :: Double) 0)
-    scale 1.05 1 (1 :: Double)
+    translate (Vector3 0 (120 :: GLdouble) 0)
+    scale 1.05 1 (1 :: GLdouble)
     mapM_ (renderPrimitive LineStrip . renderVertices2D.delayVertices clock) [lambdaLfoot,lambdaRfoot]
-  color $ Color3 (1.0 :: Double) 1.0 1.0
+  color $ Color3 (1.0 :: GLdouble) 1.0 1.0
   preservingMatrix $ do
-    translate $ Vector3 (-195 :: Double) (130) 0
-    scale (0.73 :: Double) 0.56 0.56
+    translate $ Vector3 (-195 :: GLdouble) (130) 0
+    scale (0.73 :: GLdouble) 0.56 0.56
     renderStringGrad Roman 0 "Monadius"
   preservingMatrix $ do
-    if menuCursor==0 then color $ Color3 (1.0 :: Double) 1.0 0 else color $ Color3 (1.0 :: Double) 1.0 1.0
-    translate $ Vector3 (-230 :: Double) (-200) 0
-    scale (0.2 :: Double) 0.2 0.3
+    if menuCursor==0 then color $ Color3 (1.0 :: GLdouble) 1.0 0 else color $ Color3 (1.0 :: GLdouble) 1.0 1.0
+    translate $ Vector3 (-230 :: GLdouble) (-200) 0
+    scale (0.2 :: GLdouble) 0.2 0.3
     renderStringGrad Roman 60 $ (if menuCursor==0 then ">" else " ") ++ "New Game"
   preservingMatrix $ do
-    if menuCursor==1 then color $ Color3 (1.0 :: Double) 1.0 0 else color $ Color3 (1.0 :: Double) 1.0 1.0
-    translate $ Vector3 (70 :: Double) (-200) 0
-    scale (0.2 :: Double) 0.2 0.3
+    if menuCursor==1 then color $ Color3 (1.0 :: GLdouble) 1.0 0 else color $ Color3 (1.0 :: GLdouble) 1.0 1.0
+    translate $ Vector3 (70 :: GLdouble) (-200) 0
+    scale (0.2 :: GLdouble) 0.2 0.3
     renderStringGrad Roman 60 $ (if menuCursor==1 then ">" else " ") ++ "Continue " ++ (show . fst . saveState) vars++ "-" ++ (show . (+1) . snd . saveState) vars
-  color $ Color3 (1.0 :: Double) 1.0 1.0
+  color $ Color3 (1.0 :: GLdouble) 1.0 1.0
 
   preservingMatrix $ do
-    translate $ Vector3 (-250 :: Double) (75) 0
-    scale (0.15 :: Double) 0.10 0.15
+    translate $ Vector3 (-250 :: GLdouble) (75) 0
+    scale (0.15 :: GLdouble) 0.10 0.15
     renderStringGrad Roman 10 "Dedicated to the makers, the players, the history,"
   preservingMatrix $ do
-    translate $ Vector3 (-250 :: Double) (55) 0
-    scale (0.15 :: Double) 0.10 0.15
+    translate $ Vector3 (-250 :: GLdouble) (55) 0
+    scale (0.15 :: GLdouble) 0.10 0.15
     renderStringGrad Roman  20 "  and the 20th anniversary of GRADIUS series."
   mapM_ (\ (y,(strA,strB),i) -> preservingMatrix $ do
     preservingMatrix $ do
-      translate $ Vector3 (-180 :: Double) y 0
-      scale (0.18 :: Double) 0.18 0.2
+      translate $ Vector3 (-180 :: GLdouble) y 0
+      scale (0.18 :: GLdouble) 0.18 0.2
       renderStringGrad Roman (20 + i*5) strA
     preservingMatrix $ do
-      translate $ Vector3 (60 :: Double) y 0
-      scale (0.18 :: Double) 0.18 0.2
+      translate $ Vector3 (60 :: GLdouble) y 0
+      scale (0.18 :: GLdouble) 0.18 0.2
       renderStringGrad Roman (25 + i*5) strB
     ) $ zip3 [0,(-35)..] instructions [1..]
 
@@ -233,7 +233,7 @@ openingProc clock menuCursor vars ks = do
 
      shine t = monoshine (drawCompleteTime + t) + monoshine (drawCompleteTime + t+6)
 
-     monoshine t = exp(-0.2*intToDouble(t`mod` 240))
+     monoshine t = exp(-0.2*intToGLdouble(t`mod` 240))
 
      drawCompleteTime = length lambdaRfoot
 
@@ -244,12 +244,12 @@ openingProc clock menuCursor vars ks = do
 
      wing = [(30:+0),(200:+0),(216:+16),(208:+24),(224:+24),(240:+40),(232:+48),(248:+48),(272:+72),(168:+72)]
 
-     renderVertices2D :: [Complex Double] -> IO ()
+     renderVertices2D :: [Complex GLdouble] -> IO ()
      renderVertices2D xys = mapM_ (\(x:+y) -> vertex $ Vertex3 x y 0) xys
 
      demoStartTime = if presentationMode then 480 else 1800
 
-endingProc :: GlobalVariables -> IORef [Key] -> IORef Double -> IO Scene
+endingProc :: GlobalVariables -> IORef [Key] -> IORef GLdouble -> IO Scene
 endingProc vars ks ctr= do
   keystate <- readIORef ks
   counter <- readIORef ctr
@@ -258,10 +258,10 @@ endingProc vars ks ctr= do
   matrixMode $= Modelview 0
   loadIdentity
 
-  color $ Color3 (1.0 :: Double) 1.0 1.0
+  color $ Color3 (1.0 :: GLdouble) 1.0 1.0
   zipWithM_ (\str pos -> preservingMatrix $ do
-    translate $ Vector3 (-180 :: Double) (-240+counter-pos) 0
-    scale (0.3 :: Double) 0.3 0.3
+    translate $ Vector3 (-180 :: GLdouble) (-240+counter-pos) 0
+    scale (0.3 :: GLdouble) 0.3 0.3
     renderString Roman str)
     stuffRoll [0,60..]
 
@@ -325,7 +325,7 @@ mainProc vars gs ks = do
   let currentSave = if mode gamestate == Playback then saveState vars else (currentLevel,currentArea)
   let currentHi = max (saveHiScore vars) (hiScore$getVariables$gameBody gamestate)
   if (isGameover gamestate) then do
-      counter <- newIORef (0.0 :: Double)
+      counter <- newIORef (0.0 :: GLdouble)
       if mode gamestate /= Record then return () else do
         writeReplay vars gamestate $ show (ReplayInfo (recordSaveState vars,(encode2 . preEncodedKeyBuf) gamestate))
 
