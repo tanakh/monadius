@@ -26,7 +26,7 @@ Executable monadius
                      , array     >= 0.3 && < 0.5
                      , directory >= 1.1 && < 1.2
                      , GLUT      >= 2.2 && < 2.4
-                     , OpenGL    >= 2.4 && < 2.6
+                     , OpenGL    >= 2.4 && < 2.7
 
   Hs-source-dirs:      Monadius
   Ghc-options:         -Wall
