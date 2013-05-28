@@ -28,6 +28,11 @@ Source-repository head
 Executable monadius
   Hs-source-dirs:      src
   Main-is:             Main.hs
+  Other-modules:       Demo
+                       Game
+                       Monadius
+                       Recorder
+                       Util
 
   Build-depends:       base      >= 4.6 && < 5
                      , array     >= 0.4
