@@ -1,26 +1,26 @@
 -- | Various numeric utility functions, particularly dealing with Complex
 -- numbers and shapes.
 module Util (
-                      ComplexShape(..),
-                      Shape(..),
-                      angleAccuracy,
-                      filterJust,
-                      infinite,
-                      innerProduct,
-                      intToGLdouble,
-                      isDebugMode,
-                      modifyArray,
-                      padding,
-                      putDebugStrLn,
-                      regulate,
-                      square,
-                      unitVector
-                     ) where
+  ComplexShape(..),
+  Shape(..),
+  angleAccuracy,
+  filterJust,
+  infinite,
+  innerProduct,
+  intToGLdouble,
+  isDebugMode,
+  modifyArray,
+  padding,
+  putDebugStrLn,
+  regulate,
+  square,
+  unitVector,
+  ) where
 
-import Data.Maybe (fromJust, isJust)
-import Data.Complex
-import Data.Array ( (!), (//), Array(), Ix() )
-import Graphics.Rendering.OpenGL -- Types.GLdouble
+import           Data.Array                (Array (), Ix (), (!), (//))
+import           Data.Complex
+import           Data.Maybe
+import           Graphics.Rendering.OpenGL
 
 -- | Switch this to True to get debug outputs. Be careful: you get a crash under
 -- Microsoft Windows, because the console is not available.

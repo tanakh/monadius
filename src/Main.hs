@@ -9,24 +9,22 @@
 
 module Main (main) where
 
-import Graphics.UI.GLUT hiding (position)
-import Control.Exception (catch, SomeException(..))
-import Control.Monad (mplus, zipWithM_)
-import System.Exit (ExitCode(..), exitWith)
-import Prelude
+import           Control.Exception  (SomeException (..), catch)
+import           Control.Monad      (mplus, zipWithM_)
+import           Data.Complex
+import           Data.IORef
+import           Data.List
+import           Data.Maybe
+import           Graphics.UI.GLUT   hiding (position)
+import           System.Directory   (createDirectoryIfMissing, doesFileExist)
+import           System.Environment (getArgs, getEnv)
+import           System.Exit        (exitSuccess)
 
-import Data.IORef
-import Data.List (isSuffixOf, nub)
-import Data.Complex (Complex(..), magnitude)
-import Data.Maybe (fromJust, isJust)
-import System.Directory (createDirectoryIfMissing, doesFileExist)
-import System.Environment (getArgs, getEnv)
-
-import Demo (ReplayInfo(..), demoData)
-import Game (isGameover, render, update)
-import Monadius
-import Recorder
-import Util (intToGLdouble, padding, putDebugStrLn)
+import           Demo               (ReplayInfo (..), demoData)
+import           Game               (isGameover, render, update)
+import           Monadius
+import           Recorder
+import           Util               (intToGLdouble, padding, putDebugStrLn)
 
 data GlobalVariables = GlobalVariables{
   saveState :: (Int,Int) ,isCheat :: Bool, demoIndex :: Int,
@@ -110,7 +108,7 @@ main = do
     removesuffix str = if '.' `elem` str then (removesuffix . init) str else str
 
 exitLoop :: IO a
-exitLoop = exitWith ExitSuccess
+exitLoop = exitSuccess
 
 initMatrix :: IO ()
 initMatrix = do

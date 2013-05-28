@@ -1,15 +1,23 @@
 module Monadius (
-                 Monadius(..) ,initialMonadius,getVariables,
-                 GameVariables(..),
-                 shotButton,missileButton,powerUpButton,upButton,downButton,leftButton,rightButton,selfDestructButton
-                ) where
+  Monadius(..),
+  initialMonadius,
+  getVariables,
+  GameVariables(..),
+  shotButton,
+  missileButton,
+  powerUpButton,
+  upButton,
+  downButton,
+  leftButton,
+  rightButton,
+  selfDestructButton
+  ) where
 
 import Data.Array ((!), Array(), array)
 import Data.Complex
-import Data.List (intersect, find)
-import Data.Maybe (fromJust, isJust, isNothing)
+import Data.List
+import Data.Maybe
 import Graphics.UI.GLUT hiding (position)
-import Prelude
 
 import Game
 import Util

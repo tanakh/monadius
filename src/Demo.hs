@@ -1,7 +1,7 @@
 module Demo (
-                      demoData,
-                      ReplayInfo(..)
-                     ) where
+  demoData,
+  ReplayInfo(..),
+  ) where
 
 -- | Demos are automatically played if you let the title scene run for a minute.
 newtype ReplayInfo = ReplayInfo ((Int,Int),String)

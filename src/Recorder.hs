@@ -1,20 +1,24 @@
 -- | a replay recording system.
-module Recorder (Recorder(..),initialRecorder,RecorderMode(..),
-                 encode2,decode
-                ) where
+module Recorder (
+  Recorder(..),
+  initialRecorder,
+  RecorderMode(..),
+  encode2,
+  decode,
+  ) where
 
-import Graphics.UI.GLUT hiding (position)
-import Monadius
-import Game
-import Util
+import           Game
+import           Graphics.UI.GLUT
+import           Monadius
+import           Util
 
 data Recorder = Recorder{
-      keybuf :: [[Key]],
+      keybuf           :: [[Key]],
       preEncodedKeyBuf :: [Int],
-      mode :: RecorderMode,
-      gameBody :: Monadius,
-      age :: Int,
-      isQuitRequested :: Bool}
+      mode             :: RecorderMode,
+      gameBody         :: Monadius,
+      age              :: Int,
+      isQuitRequested  :: Bool}
 
 data RecorderMode = Play | Playback | Record
                     deriving (Eq,Show)
