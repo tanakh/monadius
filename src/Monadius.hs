@@ -17,7 +17,7 @@ import Data.Array ((!), Array(), array)
 import Data.Complex
 import Data.List
 import Data.Maybe
-import Graphics.UI.GLUT hiding (position)
+import Graphics.UI.GLUT hiding (position, DebugMessage)
 
 import Game
 import Util
